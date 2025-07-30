@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Login</title></head>
+<body>
+  <h2>ログイン</h2>
+  <input type="email" id="email" placeholder="メールアドレス"><br>
+  <input type="password" id="password" placeholder="パスワード"><br>
+  <button id="loginBtn">ログイン</button>
+
+  <script type="module">
+    import { auth, signInWithEmailAndPassword } from "./firebase.js";
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "index.html";
+      } catch (e) {
+        alert("ログイン失敗: " + e.message);
+      }
+    });
+  </script>
+</body>
+</html>
