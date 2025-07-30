@@ -5,240 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase 認証デモ</title>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyB23tFm4H21IQkxwNIZX6WuVu8jLMMR3vQ",
-            authDomain: "intern2025-f7207.firebaseapp.com",
-            projectId: "intern2025-f7207",
-            storageBucket: "intern2025-f7207.firebasestorage.app",
-            messagingSenderId: "360628608364",
-            appId: "1:360628608364:web:ad346c254bcbe360ad2749",
-            measurementId: "G-7L7GF1QQ2F"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-
-        // UI要素の取得
-        const loginSection = document.getElementById('loginSection');
-        const registerSection = document.getElementById('registerSection');
-        const loggedInSection = document.getElementById('loggedInSection');
-        const messageDisplay = document.getElementById('messageDisplay');
-        const currentUserEmail = document.getElementById('currentUserEmail');
-        const verificationStatus = document.getElementById('verificationStatus');
-        const logoutButton = document.getElementById('logoutButton');
-
-        // フォーム要素
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const passwordResetForm = document.getElementById('passwordResetForm');
-        const emailLinkLoginForm = document.getElementById('emailLinkLoginForm');
-
-        // 表示切り替えボタン
-        const showRegisterButton = document.getElementById('showRegister');
-        const showLoginButton = document.getElementById('showLogin');
-
-        /**
-         * メッセージを表示する関数
-         * @param {string} msg - 表示するメッセージ
-         * @param {'info'|'success'|'error'} type - メッセージの種類 (CSSクラスに影響)
-         */
-        function showMessage(msg, type = 'info') {
-            messageDisplay.textContent = msg;
-            messageDisplay.className = `message ${type}`;
-        }
-
-        /**
-         * 認証フォームの表示を切り替える関数
-         * @param {'login'|'register'} formToShow - 表示するフォーム ('login' または 'register')
-         */
-        function showAuthForm(formToShow) {
-            loginSection.style.display = 'none';
-            registerSection.style.display = 'none';
-            if (formToShow === 'login') {
-                loginSection.style.display = 'block';
-            } else if (formToShow === 'register') {
-                registerSection.style.display = 'block';
-            }
-            // メッセージもクリアする
-            showMessage('', 'info');
-        }
-
-        // 初期表示
-        showAuthForm('login');
-
-        // --------------------------------------------------
-        // イベントリスナーの設定
-        // --------------------------------------------------
-
-        // 「新規登録はこちら」ボタン
-        if (showRegisterButton) {
-            showRegisterButton.addEventListener('click', () => showAuthForm('register'));
-        }
-
-        // 「ログインはこちら」ボタン
-        if (showLoginButton) {
-            showLoginButton.addEventListener('click', () => showAuthForm('login'));
-        }
-
-        // --- メールアドレスとパスワードによる認証 ---
-
-        // 新規登録処理
-        if (registerForm) {
-            registerForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = registerForm.regEmail.value;
-                const password = registerForm.regPassword.value;
-
-                try {
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    const user = userCredential.user;
-                    showMessage(`新規登録成功: ${user.email}。メールアドレス確認のため、確認メールを送信しました。`, 'success');
-                    await sendEmailVerification(user); // 確認メールを送信
-                    registerForm.reset();
-                    showAuthForm('login'); // 登録後ログイン画面に戻る
-                } catch (error) {
-                    showMessage(`新規登録エラー: ${error.message}`, 'error');
-                    console.error("新規登録エラー:", error);
-                }
-            });
-        }
-
-        // ログイン処理
-        if (loginForm) {
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = loginForm.loginEmail.value;
-                const password = loginForm.loginPassword.value;
-
-                try {
-                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                    const user = userCredential.user;
-                    showMessage(`ログイン成功: ${user.email}`, 'success');
-                    loginForm.reset();
-                } catch (error) {
-                    showMessage(`ログインエラー: ${error.message}`, 'error');
-                    console.error("ログインエラー:", error);
-                }
-            });
-        }
-
-        // パスワードリセット処理
-        if (passwordResetForm) {
-            passwordResetForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = passwordResetForm.resetEmail.value;
-
-                try {
-                    await sendPasswordResetEmail(auth, email);
-                    showMessage(`パスワードリセットメールを ${email} に送信しました。`, 'success');
-                    passwordResetForm.reset();
-                } catch (error) {
-                    showMessage(`パスワードリセットエラー: ${error.message}`, 'error');
-                    console.error("パスwordリセットエラー:", error);
-                }
-            });
-        }
-
-        // --- メールリンク認証（パスワードなしログイン） ---
-
-        // メールリンク送信処理
-        if (emailLinkLoginForm) {
-            emailLinkLoginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = emailLinkLoginForm.emailLinkEmail.value;
-
-                const actionCodeSettings = {
-                    url: `${window.location.origin}/index.html?signIn=true`,
-                    handleCodeInApp: true,
-                    // dynamicLinkDomain: 'your-app-link.page.link' // 必要に応じて
-                };
-
-                try {
-                    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-                    window.localStorage.setItem('emailForSignIn', email);
-                    showMessage(`認証リンクを ${email} に送信しました。メールを確認してください。`, 'success');
-                    emailLinkLoginForm.reset();
-                } catch (error) {
-                    showMessage(`メールリンク送信エラー: ${error.message}`, 'error');
-                    console.error("メールリンク送信エラー:", error);
-                }
-            });
-        }
-
-        // メールリンクでのログイン完了処理（ページロード時に実行）
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('signIn') === 'true' && isSignInWithEmailLink(auth, window.location.href)) {
-            let email = window.localStorage.getItem('emailForSignIn');
-            if (!email) {
-                email = window.prompt('認証を完了するためにメールアドレスを入力してください。');
-            }
-
-            if (email) {
-                signInWithEmailLink(auth, email, window.location.href)
-                    .then((result) => {
-                        window.localStorage.removeItem('emailForSignIn');
-                        showMessage(`メールリンクでログインしました: ${result.user.email}`, 'success');
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                    })
-                    .catch((error) => {
-                        showMessage(`メールリンクでのログインエラー: ${error.message}`, 'error');
-                        console.error("メールリンクでのログインエラー:", error);
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                    });
-            } else {
-                showMessage('メールアドレスが入力されなかったため、認証を完了できませんでした。', 'error');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        }
-
-        // --- 認証状態の監視とUI更新 ---
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // ユーザーがログインしている
-                loggedInSection.style.display = 'block'; // ログイン済みセクションを表示
-                loginSection.style.display = 'none'; // 認証フォームを非表示
-                registerSection.style.display = 'none'; // 認証フォームを非表示
-
-                currentUserEmail.textContent = user.email;
-                verificationStatus.textContent = user.emailVerified ? '確認済み' : '未確認';
-                logoutButton.style.display = 'inline-block'; // ログアウトボタンを表示
-                showMessage(`ようこそ、${user.email} さん！`, 'success');
-            } else {
-                // ユーザーがログアウトしている
-                loggedInSection.style.display = 'none'; // ログイン済みセクションを非表示
-                showAuthForm('login'); // ログインフォームを表示
-                logoutButton.style.display = 'none'; // ログアウトボタンを非表示
-                showMessage('ログインまたは新規登録を行ってください。', 'info');
-            }
-        });
-
-        // ログアウトボタンの処理
-        if (logoutButton) {
-            logoutButton.addEventListener('click', async () => {
-                try {
-                    await signOut(auth);
-                    showMessage('ログアウトしました。', 'info');
-                } catch (error) {
-                    showMessage(`ログアウトエラー: ${error.message}`, 'error');
-                    console.error("ログアウトエラー:", error);
-                }
-            });
-        }
-
-    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -481,6 +248,243 @@
             </div>
         </div>
     </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+        //import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyB23tFm4H21IQkxwNIZX6WuVu8jLMMR3vQ",
+            authDomain: "intern2025-f7207.firebaseapp.com",
+            projectId: "intern2025-f7207",
+            storageBucket: "intern2025-f7207.firebasestorage.app",
+            messagingSenderId: "360628608364",
+            appId: "1:360628608364:web:ad346c254bcbe360ad2749",
+            measurementId: "G-7L7GF1QQ2F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // UI要素の取得
+        const loginSection = document.getElementById('loginSection');
+        const registerSection = document.getElementById('registerSection');
+        const loggedInSection = document.getElementById('loggedInSection');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const currentUserEmail = document.getElementById('currentUserEmail');
+        const verificationStatus = document.getElementById('verificationStatus');
+        const logoutButton = document.getElementById('logoutButton');
+
+        // フォーム要素
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const passwordResetForm = document.getElementById('passwordResetForm');
+        const emailLinkLoginForm = document.getElementById('emailLinkLoginForm');
+
+        // 表示切り替えボタン
+        const showRegisterButton = document.getElementById('showRegister');
+        const showLoginButton = document.getElementById('showLogin');
+
+        /**
+         * メッセージを表示する関数
+         * @param {string} msg - 表示するメッセージ
+         * @param {'info'|'success'|'error'} type - メッセージの種類 (CSSクラスに影響)
+         */
+        function showMessage(msg, type = 'info') {
+            messageDisplay.textContent = msg;
+            messageDisplay.className = `message ${type}`;
+        }
+
+        /**
+         * 認証フォームの表示を切り替える関数
+         * @param {'login'|'register'} formToShow - 表示するフォーム ('login' または 'register')
+         */
+        function showAuthForm(formToShow) {
+            loginSection.style.display = 'none';
+            registerSection.style.display = 'none';
+            if (formToShow === 'login') {
+                loginSection.style.display = 'block';
+            } else if (formToShow === 'register') {
+                registerSection.style.display = 'block';
+            }
+            // メッセージもクリアする
+            showMessage('', 'info');
+        }
+
+        // 初期表示
+        showAuthForm('login');
+
+        // --------------------------------------------------
+        // イベントリスナーの設定
+        // --------------------------------------------------
+
+        // 「新規登録はこちら」ボタン
+        if (showRegisterButton) {
+            showRegisterButton.addEventListener('click', () => showAuthForm('register'));
+        }
+
+        // 「ログインはこちら」ボタン
+        if (showLoginButton) {
+            showLoginButton.addEventListener('click', () => showAuthForm('login'));
+        }
+
+        // --- メールアドレスとパスワードによる認証 ---
+
+        // 新規登録処理
+        if (registerForm) {
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = registerForm.regEmail.value;
+                const password = registerForm.regPassword.value;
+
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    showMessage(`新規登録成功: ${user.email}。メールアドレス確認のため、確認メールを送信しました。`, 'success');
+                    await sendEmailVerification(user); // 確認メールを送信
+                    registerForm.reset();
+                    showAuthForm('login'); // 登録後ログイン画面に戻る
+                } catch (error) {
+                    showMessage(`新規登録エラー: ${error.message}`, 'error');
+                    console.error("新規登録エラー:", error);
+                }
+            });
+        }
+
+        // ログイン処理
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = loginForm.loginEmail.value;
+                const password = loginForm.loginPassword.value;
+
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    showMessage(`ログイン成功: ${user.email}`, 'success');
+                    loginForm.reset();
+                } catch (error) {
+                    showMessage(`ログインエラー: ${error.message}`, 'error');
+                    console.error("ログインエラー:", error);
+                }
+            });
+        }
+
+        // パスワードリセット処理
+        if (passwordResetForm) {
+            passwordResetForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = passwordResetForm.resetEmail.value;
+
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    showMessage(`パスワードリセットメールを ${email} に送信しました。`, 'success');
+                    passwordResetForm.reset();
+                } catch (error) {
+                    showMessage(`パスワードリセットエラー: ${error.message}`, 'error');
+                    console.error("パスwordリセットエラー:", error);
+                }
+            });
+        }
+
+        // --- メールリンク認証（パスワードなしログイン） ---
+
+        // メールリンク送信処理
+        if (emailLinkLoginForm) {
+            emailLinkLoginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = emailLinkLoginForm.emailLinkEmail.value;
+
+                const actionCodeSettings = {
+                    url: `${window.location.origin}/index.html?signIn=true`,
+                    handleCodeInApp: true,
+                    // dynamicLinkDomain: 'your-app-link.page.link' // 必要に応じて
+                };
+
+                try {
+                    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+                    window.localStorage.setItem('emailForSignIn', email);
+                    showMessage(`認証リンクを ${email} に送信しました。メールを確認してください。`, 'success');
+                    emailLinkLoginForm.reset();
+                } catch (error) {
+                    showMessage(`メールリンク送信エラー: ${error.message}`, 'error');
+                    console.error("メールリンク送信エラー:", error);
+                }
+            });
+        }
+
+        // メールリンクでのログイン完了処理（ページロード時に実行）
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('signIn') === 'true' && isSignInWithEmailLink(auth, window.location.href)) {
+            let email = window.localStorage.getItem('emailForSignIn');
+            if (!email) {
+                email = window.prompt('認証を完了するためにメールアドレスを入力してください。');
+            }
+
+            if (email) {
+                signInWithEmailLink(auth, email, window.location.href)
+                    .then((result) => {
+                        window.localStorage.removeItem('emailForSignIn');
+                        showMessage(`メールリンクでログインしました: ${result.user.email}`, 'success');
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    })
+                    .catch((error) => {
+                        showMessage(`メールリンクでのログインエラー: ${error.message}`, 'error');
+                        console.error("メールリンクでのログインエラー:", error);
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    });
+            } else {
+                showMessage('メールアドレスが入力されなかったため、認証を完了できませんでした。', 'error');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // --- 認証状態の監視とUI更新 ---
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // ユーザーがログインしている
+                loggedInSection.style.display = 'block'; // ログイン済みセクションを表示
+                loginSection.style.display = 'none'; // 認証フォームを非表示
+                registerSection.style.display = 'none'; // 認証フォームを非表示
+
+                currentUserEmail.textContent = user.email;
+                verificationStatus.textContent = user.emailVerified ? '確認済み' : '未確認';
+                logoutButton.style.display = 'inline-block'; // ログアウトボタンを表示
+                showMessage(`ようこそ、${user.email} さん！`, 'success');
+            } else {
+                // ユーザーがログアウトしている
+                loggedInSection.style.display = 'none'; // ログイン済みセクションを非表示
+                showAuthForm('login'); // ログインフォームを表示
+                logoutButton.style.display = 'none'; // ログアウトボタンを非表示
+                showMessage('ログインまたは新規登録を行ってください。', 'info');
+            }
+        });
+
+        // ログアウトボタンの処理
+        if (logoutButton) {
+            logoutButton.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    showMessage('ログアウトしました。', 'info');
+                } catch (error) {
+                    showMessage(`ログアウトエラー: ${error.message}`, 'error');
+                    console.error("ログアウトエラー:", error);
+                }
+            });
+        }
+
+    </script>
+    <noscript>
+          <p style="color: red;">JavaScript が無効になっています。ブラウザの設定を確認してください。</p>
+    </noscript>
 </body>
 
 </html>
