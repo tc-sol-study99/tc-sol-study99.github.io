@@ -28,6 +28,7 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const auth = getAuth(app);
 
         // UI要素の取得
         const loginSection = document.getElementById('loginSection');
