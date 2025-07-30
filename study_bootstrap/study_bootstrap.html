@@ -1,0 +1,1197 @@
+<html>
+
+<head>
+    <!-- 漢字コードの指定 -->
+    <meta charset="UTF-8">
+    <!-- ページタイトルの指定 -->
+    <title>Bootstrapサンプル集</title>
+    <!-- ページデザインを効率化する便利なフレームワーク「Bootstrap」の読み込み -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+        }
+
+        section {
+            margin-top: 1rem;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            scroll-margin-top: 70px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 5px solid #0d6efd;
+            /* Bootstrapのprimary色などに変更可能 */
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            margin-left: 0.5rem;
+            /* ms-2相当 */
+            margin-bottom: 1rem;
+            /* mb-4相当 */
+            font-weight: 500;
+            font-size: 2rem;
+            /* fs-1相当 */
+        }
+
+        div {
+            margin-left: 0.75rem;
+        }
+
+        pre {
+            border: 1px solid #ccc;
+            /* 枠線の色 */
+            padding: 10px;
+            /* 内側の余白 */
+            background-color: #f9f9f9;
+            /* 背景色（任意） */
+            overflow-x: auto;
+            /* 横スクロール対応 */
+            border-radius: 5px;
+            /* 角丸（任意） */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-dark bg-primary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand ps-3" href="#">Bootstrapサンプル集</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                    <div class="d-flex flex-column flex-sm-row w-100">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#bootstrap_icon">1. Bootstrapアイコン</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#typograpy">2. タイポグラフィ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#image">3. 画像</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#table">4. テーブル</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#modal">5. モーダル</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#card">6. カード</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#carousel">7. カルーセル</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#collapse">8. コラプス</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#navbar">9. navbar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#listgroup">10. リストグループ</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-wrap">
+
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#button">11. ボタン</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#dropdown">12. ドロップダウン</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#offcanvas">13. オフキャンパス</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#popover">14.ポップオーバー</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#scrollspy">15. スクロールスパイ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#toast">16. トースト</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#color_util">17. Colorユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#border_util">18. Bordersユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#display_util">19. Displayユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#sizing_util">20. Sizingユーティリティ</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-wrap">
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#spacing_util">21. Spacingユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#flex_util">22. Flexユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#text_util">23.Textユーティリティ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link py-0" href="#position_util">24. Positionユーティリティ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="pt-2 mt-5">
+        <div class="container">
+            <article>
+                <!-- Bootstrap container-->
+                <section id="bootstrap_icon">
+                    <hr>
+                    <h1>1. Bootstrapアイコン</h1>
+                    <hr>
+                    <div>
+                        <!--Bootstrap Icons -->
+                        <!--start-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-bandaid" viewBox="0 0 16 16">
+                            <path
+                                d="M14.121 1.879a3 3 0 0 0-4.242 0L8.733 3.026l4.261 4.26 1.127-1.165a3 3 0 0 0 0-4.242M12.293 8 8.027 3.734 3.738 8.031 8 12.293zm-5.006 4.994L3.03 8.737 1.879 9.88a3 3 0 0 0 4.241 4.24l.006-.006 1.16-1.121ZM2.679 7.676l6.492-6.504a4 4 0 0 1 5.66 5.653l-1.477 1.529-5.006 5.006-1.523 1.472a4 4 0 0 1-5.653-5.66l.001-.002 1.505-1.492z" />
+                            <path
+                                d="M5.56 7.646a.5.5 0 1 1-.706.708.5.5 0 0 1 .707-.708Zm1.415-1.414a.5.5 0 1 1-.707.707.5.5 0 0 1 .707-.707M8.39 4.818a.5.5 0 1 1-.708.707.5.5 0 0 1 .707-.707Zm0 5.657a.5.5 0 1 1-.708.707.5.5 0 0 1 .707-.707ZM9.803 9.06a.5.5 0 1 1-.707.708.5.5 0 0 1 .707-.707Zm1.414-1.414a.5.5 0 1 1-.706.708.5.5 0 0 1 .707-.708ZM6.975 9.06a.5.5 0 1 1-.707.708.5.5 0 0 1 .707-.707ZM8.39 7.646a.5.5 0 1 1-.708.708.5.5 0 0 1 .707-.708Zm1.413-1.414a.5.5 0 1 1-.707.707.5.5 0 0 1 .707-.707" />
+                        </svg>
+                        <!--end-->
+                        <p class="mt-3">Bootstrap Iconsは沢山ある。<a href="https://icons.getbootstrap.jp/"
+                                target="_blank">https://icons.getbootstrap.jp/</a>を参照してください。</p>
+                    </div>
+                </section> <!-- Bootstrap container 終端-->
+                <!--タイポグラフィ -->
+                <section id="typograpy">
+                    <hr>
+                    <h1>2. タイポグラフィ</h1>
+                    <hr>
+                    <p class="ms-3">タイポグラフィとは、見出し&ltH1など&gt、本文、リストなどを言う</p>
+                    <section>
+                        <h2>2.1. small</h2>
+                        <div>
+                            <!--start-->
+                            <p class="small mb-0"><small>少し小さい</small>フォントは&ltsmall&gtを使う</p>
+                            <p class="small mb-0"><span class="small">少し小さい</span>フォントは、class="small"を使っても良い</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.2. strong & b</h2>
+                        <div>
+                            <!--start-->
+                            <p class="mb-0">strong要素を使って<strong>重要テキスト</strong>を太字で表示させることができます</p>
+                            <p class="mb-0">b要素でも<b>同じこと</b>が出来ます。</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.3. mark</h2>
+                        <div>
+                            <!--start-->
+                            <p class="mb-0">mark要素を使って、テキストを<mark>ハイライト表示</mark>させることができます。</p>
+                            <p class="mb-0">定義済みクラス「.mark」を使用して<span class="mark">mark要素とスタイルを一致</span>させることもできます。
+                            </p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.4. del & s</h2>
+                        <div>
+                            <!--start-->
+                            <p>del要素のデフォルトスタイルを使って、テキストを<del>削除されたテキスト</del>として取り消し線を表示させることができます。</p>
+                            <p>s要素のデフォルトスタイルを使って、テキストを<s>削除されたテキスト</s>として取り消し線を表示させることができます。</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.5. ins & u</h2>
+                        <div>
+                            <!--start-->
+                            <p>ins要素のデフォルトスタイルを使って、テキストを<ins>後から挿入されたテキスト</ins>として下線を表示することができます。</p>
+                            <p>u要素のデフォルトスタイルを使って、テキストを<u>ラベル付けされたテキスト</u>として下線を表示させることができます。</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.6. em</h2>
+                        <div>
+                            <!--start-->
+                            <p>em要素のデフォルトスタイルを使って、テキストを<em>強調したいテキスト（Emphasis
+                                    text）</em>としてイタリック体または斜体で表示させることができます。（ブラウザによっては123やabcなど英数字のみ適用）</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.7. 略語</h2>
+                        <div>
+                            <p>addr要素を使って、略語の説明を出せる</p>
+                            <!--start-->
+                            <p class="mb-0"><abbr title="Hyper Text Markup Language">HTML</abbr></p>
+                            <p class="mb-0"><abbr title="Hyper Text Markup Language" class="initialism">HTML</abbr>
+                            </p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.8. 引用文</h2>
+                        <div>
+                            <p>参考文献からの引用</p>
+                            <!--start-->
+                            <figure class="border-start border-4 border-primary ps-3">
+                                <blockquote class="blockquote">
+                                    <p class="mb-2">「学び続ける者だけが、真の成長を遂げる。」</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    山田 太郎 <cite title="未来を拓く学びの力">未来を拓く学びの力</cite>
+                                </figcaption>
+                            </figure>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.9. リスト</h2>
+                        <div>
+                            <p>class="ms-3"をつけるとマーカーを消せる</p>
+                            <div>
+                                <!--start-->
+                                <ul class="list-unstyled border">
+                                    <li>リスト項目</li>
+                                    <li>リスト項目
+                                        <ul>
+                                            <li>ネストされたリスト項目</li>
+                                            <li>ネストされたリスト項目</li>
+                                            <li>ネストされたリスト項目</li>
+                                        </ul>
+                                    </li>
+                                    <li>リスト項目</li>
+                                    <li>リスト項目</li>
+                                </ul>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>2.10. インラインリスト</h2>
+                        <div>
+                            <p>class="list-inline"とclass="list-inline-item"をつけるとインライン（横方向）表示になる</p>
+                            <div>
+                                <!--start-->
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">インラインリスト項目</li>
+                                    <li class="list-inline-item">インラインリスト項目</li>
+                                    <li class="list-inline-item">インラインリスト項目</li>
+                                </ul>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section> <!-- タイポグラフィ終端 -->
+                <!-- 画像 -->
+                <section id="image">
+                    <hr>
+                    <h1>3. 画像</h1>
+                    <hr>
+                    <p class="ms-3">画像をレスポンシブにする機能をBootstrapは持っている</p>
+                    <section>
+                        <h2>3.1. レスポンシブ画像</h2>
+                        <div>
+                            <!--start-->
+                            <p>class="img-fluid"をつけるとレスポンシブ画像になる（ブラウザの表示サイズに連動する）</p>
+                            <img src="img/introduction.jpg" class="img-fluid" alt="レスポンシブ画像">
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>3.2. サムネイル画像</h2>
+                        <div>
+                            <p>class="img-thumbnail"をつけるとサムネイル画像になる</p>
+                            <div>
+                                <!--start-->
+                                <img src="img/introduction.jpg" class="img-thumbnail img-fluid" alt="レスポンシブ画像" width="200"
+                                    height="150">
+                                <img src="img/dontaku.jpg" class="img-thumbnail img-fluid" alt="レスポンシブ画像" width="200"
+                                    height="150">
+                                <img src="img/yamagasa.jpg" class="img-thumbnail img-fluid" alt="レスポンシブ画像" width="200"
+                                    height="150">
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section> <!-- 画像終端 -->
+                <!--テーブル-->
+                <section id="table">
+                    <hr>
+                    <h1>4. テーブル</h1>
+                    <hr>
+                    <p class="ms-3">表形式を表現するのはtable要素だが、Bootstrapで表示形式を変更できる</p>
+                    <section>
+
+                        <h2>4.1. ストライプ</h2>
+                        <div>
+                            <!--start-->
+                            <table class="table table-bordered table-striped">
+                                <thead> <!--ヘッド部分-->
+                                    <tr class="table-primary"> <!--１行-->
+                                        <th> <!-- ヘッダー項目-->
+                                            項目
+                                        </th>
+                                        <th> <!-- ヘッダー項目-->
+                                            内容
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody> <!--テーブル部分-->
+                                    <tr> <!--１行-->
+                                        <td> <!--データ項目-->
+                                            名前
+                                        </td>
+                                        <td> <!--データ項目-->
+                                            テクノ太郎
+                                        </td>
+                                    </tr>
+                                    <tr> <!--１行-->
+                                        <td> <!--データ項目-->
+                                            生年月日
+                                        </td>
+                                        <td> <!--データ項目-->
+                                            1999年7月1日
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section> <!-- テーブル終端 -->
+                <section id="modal">
+                    <hr>
+                    <h1>5. モーダル</h1>
+                    <hr>
+                    <section>
+                        <h2>5.1. ボタンと連動したモーダル</h2>
+                        <div>
+                            <p>以下のボタンを押すとモーダルが表示される。もう一度押すと消える。</p>
+                            <div>
+                                <!--start-->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#hobby">
+                                    趣味を見る
+                                </button>
+                                <div class="modal fade" id="hobby" tabindex="-1" aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">趣味</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3>
+                                                    趣味
+                                                </h3>
+                                                トイプードル<br>
+                                                10か月<br>
+                                                誕生日は9月1日...
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!--カード-->
+                <section id="card">
+                    <hr>
+                    <h1>6. カード</h1>
+                    <hr>
+                    <section>
+                        <h2>6.1. インラインでカードを表示</h2>
+                        <div>
+                            <p>カードを表示し福岡市の祭りを紹介。インラインで横方向に表示している。</p>
+                            <!--start-->
+                            <div class="d-flex">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="img/dontaku.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">博多どんたく港まつり</h5>
+                                        <p class="card-text">
+                                            博多どんたくは、約850年前の治承3年（1179年）に始まったとされる民俗行事「博多松囃子（まつばやし）」を起源としています。昭和37年（1962年）に市民総参加の「福岡市民の祭り」となり、国内外から200万人以上の人出でにぎわう日本有数のお祭りとなりました。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img src="img/yamagasa.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">博多祇園山笠</h5>
+                                        <p class="card-text">
+                                            博多の総鎮守として知られる櫛田神社（福岡市博多区）に山笠と呼ばれる作り山を奉納する神事で、国の重要無形民俗文化財に指定されていています。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- カルーセル -->
+                <section id="carousel">
+                    <hr>
+                    <h1>7. カルーセル</h1>
+                    <hr>
+                    <section>
+                        <h2>7.1. カルーセルでスライド表示</h2>
+                        <div>
+                            <p>カルーセル機能で福岡市の祭りを紹介。定期的にスライドする</p>
+                            <!--start-->
+                            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="img/dontaku.jpg" class="d-block h-50" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/yamagasa.jpg" class="d-block h-50" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!--collapse-->
+                <section id="collapse">
+                    <hr>
+                    <h1>8. コラプス</h1>
+                    <hr>
+                    <section>
+                        <h2>8.1. 開いたり・閉じたり</h2>
+                        <div>
+                            <P>以下のボタンを押すとカードを表示する。もう一度押すと消える。</P>
+                            <div>
+                                <!--start-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    開いたり・閉じたり
+                                </button>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        こういうふうに、開いたり閉じたりできるよ
+                                    </div>
+                                </div>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- navbar -->
+                <section id="navbar">
+                    <hr>
+                    <h1>9. navbar</h1>
+                    <hr>
+                    <section>
+                        <h2>9.1. navbarサーチ・ドロップダウン付き</h2>
+                        <div>
+                            <p>画面が多いとメニューが出現するが、小さくするとハンバーガーメニューに収まる。</p>
+                            <div>
+                                <!--start-->
+                                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                                    <div class="container-fluid">
+                                        <a class="navbar-brand" href="#">Navbar</a>
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">Link</a>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link disabled">Disabled</a>
+                                                </li>
+                                            </ul>
+                                            <form class="d-flex" role="search">
+                                                <input class="form-control me-2" type="search" placeholder="Search"
+                                                    aria-label="Search">
+                                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </nav>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section> <!-- navbars終端 -->
+                <!-- listgroup -->
+                <section id="listgroup">
+                    <hr>
+                    <h1>10. リストグループ</h1>
+                    <hr>
+                    <section>
+                        <h2>10.1 アクティブなアイテムと色</h2>
+                        <div>
+                            <!--start-->
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-primary active" aria-current="true">An
+                                    active
+                                    item
+                                </li>
+                                <li class="list-group-item list-group-item-secondary">A second item</li>
+                                <li class="list-group-item list-group-item-success">A third item</li>
+                                <li class="list-group-item list-group-item-warning">A fourth item</li>
+                                <li class="list-group-item list-group-item-info">And a fifth one</li>
+                            </ul>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- ボタン -->
+                <section id="button">
+                    <hr>
+                    <h1>11. ボタン</h1>
+                    <hr>
+                    <section>
+                        <h2>11.1. ボタンカラー</h2>
+                        <div>
+                            <p>以下のLinkもボタンの一つ。class="btn btn-link"で指定</p>
+                            <!--start-->
+                            <button type="button" class="btn btn-primary">Primary</button>
+                            <button type="button" class="btn btn-secondary">Secondary</button>
+                            <button type="button" class="btn btn-success">Success</button>
+                            <button type="button" class="btn btn-danger">Danger</button>
+                            <button type="button" class="btn btn-warning">Warning</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                            <button type="button" class="btn btn-light">Light</button>
+                            <button type="button" class="btn btn-dark">Dark</button>
+                            <button type="button" class="btn btn-link">Link</button>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- ドロップダウン -->
+                <section id="dropdown">
+                    <hr>
+                    <h1>12. ドロップダウン</h1>
+                    <hr>
+                    <section>
+                        <h2>12.1. シングルボタン</h2>
+                        <div>
+                            <p>ボタンをクリックするとドロップリストが表示される。</p>
+                            <!--start-->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- オフキャンパス -->
+                <section id="offcanvas">
+                    <hr>
+                    <h1>13. オフキャンパス</h1>
+                    <hr>
+                    <section>
+                        <h2>13.1. ボタンイベントのオフキャンパス</h2>
+                        <div>
+                            <p>ボタンをクリックすると、左側にオフキャンパスが表示される。</p>
+                            <div>
+                                <!--start-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                    クリックするとオフキャンパスが表示される
+                                </button>
+                                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                                    aria-labelledby="offcanvasExampleLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <div>
+                                            Some text as placeholder. In real life you can have the elements you have
+                                            chosen.
+                                            Like,
+                                            text, images, lists, etc.
+                                            <br>
+                                            実際の場面では、テキスト、画像、リストなど、あなたが選んだ要素を使うことができます。
+                                            ここではプレースホルダーとしてのテキストを表示しています。
+                                        </div>
+                                        <div class="dropdown mt-3">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown">
+                                                Dropdown button
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- ポップオーバー -->
+                <section id="popover">
+                    <hr>
+                    <h1>14.ポップオーバー</h1>
+                    <hr>
+                    <section>
+                        <h2>14.1. ポップオーバー</h2>
+                        <div>
+                            <p>ボタンを押すとポップオーバーが表示される</p>
+                            <!--start-->
+                            <div>
+                                <div class="mb-5"> <!-- マージン取らないとpopoverしなかった -->
+                                    <a class="btn btn-lg btn-danger" data-bs-toggle="popover" title="ポップオーバーのタイトル"
+                                        data-bs-content="ポップオーバーの説明。もう一度ボタンを押すと閉じます。">クリックするとポップオーバが表示される</a>
+                                </div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- スクロールスパイ -->
+                <section id="scrollspy">
+                    <hr>
+                    <h1>15. スクロールスパイ</h1>
+                    <hr>
+                    <section>
+                        <h2>15.1. 基本</h2>
+                        <div>
+                            <p>navbarのメニューから書く項目へ飛ぶ</p>
+                            <div>
+                                <!--start-->
+                                <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+                                    <a class="navbar-brand" href="#">ブランド</a>
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#scrollspyHeading1">第1</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#scrollspyHeading2">第2</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                                role="button" aria-expanded="false">ドロップダウン</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#scrollspyHeading3">第3</a></li>
+                                                <li><a class="dropdown-item" href="#scrollspyHeading4">第4</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="#scrollspyHeading5">第5</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="p-3 mt-2 overflow-auto" data-bs-spy="scroll"
+                                    data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+                                    data-bs-smooth-scroll="true" tabindex="0" style="height:200px">
+                                    <h4 id="scrollspyHeading1">第1の見出し</h4>
+                                    <p>...</p>
+                                    <h4 id="scrollspyHeading2">第2の見出し</h4>
+                                    <p>...</p>
+                                    <h4 id="scrollspyHeading3">第3の見出し</h4>
+                                    <p>...</p>
+                                    <h4 id="scrollspyHeading4">第4の見出し</h4>
+                                    <p>...</p>
+                                    <h4 id="scrollspyHeading5">第5の見出し</h4>
+                                    <p>...</p>
+                                </div>
+                                <!--end-->
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!-- トースト -->
+                <section id="toast">
+                    <hr>
+                    <h1>16. トースト</h1>
+                    <hr>
+                    <section>
+                        <h2>16.1. 基本</h2>
+                        <div class="ms-3 mb-5">
+                            <p class="mb-0">以下のようなバルーンが出せる</p>
+                            <p>初期設定では表示後5秒で消える仕様だが、今の設定は制限時間がない</p>
+                            <!--start-->
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"
+                                        width="32" height="32" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">Bootstrap</strong>
+                                    <small>11 mins ago</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    こんにちは！<br />
+                                    これはトーストからのメッセージです。
+                                </div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Colorユーティリティ -->
+                <section id="color_util">
+                    <hr>
+                    <h1>17. Colorユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <h2>17.1. 文字</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <p class="text-primary">.text-primary</p>
+                            <p class="text-secondary">.text-secondary</p>
+                            <p class="text-success">.text-success</p>
+                            <p class="text-danger">.text-danger</p>
+                            <p class="text-warning bg-dark">.text-warning</p>
+                            <p class="text-info bg-dark">.text-info</p>
+                            <p class="text-light bg-dark">.text-light</p>
+                            <p class="text-dark">.text-dark</p>
+                            <p class="text-body">.text-body</p>
+                            <p class="text-muted">.text-muted</p>
+                            <p class="text-white bg-dark">.text-white</p>
+                            <p class="text-black-50">.text-black-50</p>
+                            <p class="text-white-50 bg-dark">.text-white-50</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>17.2. 背景色</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <p class="bg-primary">.text-primary</p>
+                            <p class="bg-secondary">.text-secondary</p>
+                            <p class="bg-success">.text-success</p>
+                            <p class="bg-danger">.text-danger</p>
+                            <p class="bg-dark">.text-warning</p>
+                            <p class="bg-info">.text-info</p>
+                            <p class="bg-light">.text-light</p>
+                            <p class="bg-dark text-white">.text-dark</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Bordersユーティリティ -->
+                <section id="border_util">
+                    <hr>
+                    <h1>18. Bordersユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <h2>18.1. ボーダー</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <span class="border border-danger">border</span>
+                            <span class="border-top border-danger">border-top</span>
+                            <span class="border-end border-danger">border-end</span>
+                            <span class="border-bottom border-danger">border-bottom</span>
+                            <span class="border-start border-danger">border-start</span>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>18.2. ボーダーカラー</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <span class="border border-primary">border-primary</span>
+                            <span class="border border-secondary">border-secondary</span>
+                            <span class="border border-success">border-success</span>
+                            <span class="border border-danger">border-danger</span>
+                            <span class="border border-warning">border-warning</span>
+                            <span class="border border-info">border-info</span>
+                            <span class="border border-light">border-light</span>
+                            <span class="border border-dark">border-dark</span>
+                            <span class="border border-white">border-white</span>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>18.3. ボーダー幅</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <span class="border border-1">border-1</span>
+                            <span class="border border-2">border-2</span>
+                            <span class="border border-3">border-3</span>
+                            <span class="border border-4">border-4</span>
+                            <span class="border border-5">border-5</span>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Displayユーティリティ -->
+                <section id="display_util">
+                    <hr>
+                    <h1>19. Displayユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <h2>19.1. インライン</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-inline p-2 bg-primary text-white">d-inline</div>
+                            <div class="d-inline p-2 bg-dark text-white">d-inline</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>19.2. ブロック</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-block p-2 bg-primary text-white">d-inline</div>
+                            <div class="d-block p-2 bg-dark text-white">d-inline</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Sizingユーティリティ -->
+                <section id="sizing_util">
+                    <hr>
+                    <h1>20. Sizingユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <h2>20.1. 幅を指定する</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="w-25 border">Width 25%</div>
+                            <div class="w-50 border">Width 50%</div>
+                            <div class="w-75 border">Width 75%</div>
+                            <div class="w-100 border">Width 100%</div>
+                            <div class="w-auto border">Width auto</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>20.2. 高さ幅を指定する</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="h-25 border">Height 25%</div>
+                            <div class="h-50 border">Height 50%</div>
+                            <div class="h-75 border">Height 75%</div>
+                            <div class="h-100 border">Height 100%</div>
+                            <div class="h-auto border">Height auto</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Spacingユーティリティ -->
+                <section id="spacing_util">
+                    <hr>
+                    <h1>21. Spacingユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <p class="m-0">以下は、ｍやpのパラメータのあと、m-3などの数値を使うが、0～5まで指定できる</p>
+                        <p class="mb-2">0:マージンなし、1:0.25rem、2:0.5rem、3:1rem、4:1.5rem、5:3rem</p>
+                        <h2>21.1. マージンを指定する</h2>
+                        <div class="ms-3 mb-5 border border-primary">
+                            <!--start-->
+                            <div class="m-3 border">m-3 全マージンを１rem(1文字)</div>
+                            <div class="mt-3 border">mt-3 上マージンを１rem(1文字)</div>
+                            <div class="me-3 border">me-3 右マージンを１rem(1文字)</div>
+                            <div class="mb-3 border">mb-3 下マージンを１rem(1文字)</div>
+                            <div class="ms-3 border">ms-3 左マージンを１rem(1文字)</div>
+                            <div class="mx-3 border">mx-3 左右マージンを１rem(1文字)</div>
+                            <div class="my-3 border">my-3 上下マージンを１rem(1文字)</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>21.2. パディングを指定する</h2>
+                        <p class="p-3">要素の内側から外側にマージンを取る</p>
+                        <div class="ms-3 mb-5 border border-primary">
+                            <!--start-->
+                            <div class="p-3 border">p-3 全マージンを１rem(1文字)</div>
+                            <div class="pt-3 border">pt-3 上マージンを１rem(1文字)</div>
+                            <div class="pe-3 border">pe-3 右マージンを１rem(1文字)</div>
+                            <div class="pb-3 border">pb-3 下マージンを１rem(1文字)</div>
+                            <div class="ps-3 border">ps-3 左マージンを１rem(1文字)</div>
+                            <div class="px-3 border">px-3 左右マージンを１rem(1文字)</div>
+                            <div class="py-3 border">py-3 上下マージンを１rem(1文字)</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Flexユーティリティ -->
+                <section id="flex_util">
+                    <hr>
+                    <h1>22. Flexユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <p class="m-0 mb-3">レイアウトをBOX単位で自由に配置できるユーティリティ</p>
+                        <h2>22.1. flexbox有効化</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-flex border">flexコンテナ</div>
+                            <div class="d-inline-flex border">インラインのflexコンテナ</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>22.2. flexbox配置行方向</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-flex flex-row">
+                                <div class="border">アイテム1</div>
+                                <div class="border">アイテム2</div>
+                                <div class="border">アイテム3</div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>22.3. flexbox配置カラム方向</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-flex flex-column">
+                                <div class="border">アイテム1</div>
+                                <div class="border">アイテム2</div>
+                                <div class="border">アイテム3</div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>22.4. flexbox混合</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="d-flex flex-row">
+                                <div class="d-flex flex-column col-6">
+                                    <div class="border">アイテム1</div>
+                                    <div class="border">アイテム2</div>
+                                    <div class="border">アイテム3</div>
+                                </div>
+                                <div class="d-flex flex-column col-6">
+                                    <div class="border">アイテム4</div>
+                                    <div class="border">アイテム5</div>
+                                    <div class="border">アイテム6</div>
+                                </div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Textユーティリティ -->
+                <section id="text_util">
+                    <hr>
+                    <h1>23.Textユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <p>文字の整列、折り返し、太さを設定</p>
+                        <h2>23.1. 文字の配置</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <p class="border text-start">text-start</p>
+                            <p class="border text-center">text-center</p>
+                            <p class="border text-end">text-end</p>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <!-- Positionユーティリティ -->
+                <section id="position_util">
+                    <hr>
+                    <h1>24. Positionユーティリティ</h1>
+                    <hr>
+                    <section>
+                        <p class="m-0 mb-3">相対位置・絶対位置など、要素の位置指定を行うことが出来る</p>
+                        <h2>24.1. 配置位置を指定する</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="position-relative w-auto bg-info" style="height: 400px;">
+                                <div class="position-absolute top-0 start-0">position-absolute top-0 start-0</div>
+                                <div class="position-absolute top-0 end-0">position-absolute top-0 end-0</div>
+                                <div class="position-absolute top-50 start-50">position-absolute top-50 start-50</div>
+                                <div class="position-absolute bottom-50 end-50">position-absolute bottom-50 end-50</div>
+                                <div class="position-absolute bottom-0 start-0">position-absolute bottom-0 start-0</div>
+                                <div class="position-absolute bottom-0 end-0">position-absolute bottom-0 end-0</div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>24.2. 配置位置に要素の中心が来るようにする</h2>
+                        <div class="ms-3 mb-5">
+                            <!--start-->
+                            <div class="position-relative w-auto bg-info" style="height: 400px;">
+                                <div class="position-absolute top-0 start-0 translate-middle">1</div>
+                                <div class="position-absolute top-0 start-50 translate-middle">2</div>
+                                <div class="position-absolute top-0 start-100 translate-middle">3</div>
+                                <div class="position-absolute top-50 start-0 translate-middle">4</div>
+                                <div class="position-absolute top-50 start-50 translate-middle">5</div>
+                                <div class="position-absolute top-50 start-100 translate-middle">6</div>
+                                <div class="position-absolute top-100 start-0 translate-middle">7</div>
+                                <div class="position-absolute top-100 start-50 translate-middle">8</div>
+                                <div class="position-absolute top-100 start-100 translate-middle">9</div>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>24.3. 最上位に固定する</h2>
+                        <div class="ms-3 mb-5">
+                            <button onclick='toggleNav("position_util_nav_1")'
+                                class="btn btn-primary my-3">ナビバーを表示／非表示</button>
+                            <!--start-->
+                            <div class="fixed-top py-3 px-3 bg-dark text-center" id="position_util_nav_1"
+                                style="display: none;"><a href="#test" class="text-light">#testへ</a>
+                            </div>
+                            <!--end-->
+                        </div>
+                    </section>
+                    <section>
+                        <h2>24.4. 最上位に達すると固定する</h2>
+                        <div class="ms-3 mb-5">
+                            <button onclick='toggleNav("position_util_nav_2")'
+                                class="btn btn-primary my-3">ナビバーを表示／非表示</button>
+                            <!--start-->
+                            <div class="sticky-top py-3 px-3 bg-dark text-center" id="position_util_nav_2"
+                                style="display: none;"><a href="#test" class="text-light">#testへ</a>
+                            </div>
+                            <h3 id="test">#test</h3>
+                            <div style="height: 1300px; background-color: #eee;">このボックスには高さ1300pxが設定されています。</div>
+                            <!--end-->
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <hr>
+                    <h1>25. スタート用HTMLテンプレートダウンロード</h1>
+                    <hr>
+                    <div>
+                        <a href="html/templace.html" download="html/templace.html">HTMLファイルをダウンロード</a>
+                        <div id="fileContent" style="white-space: pre-wrap; border: 1px solid #ccc; padding: 10px;">
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+    <footer class="text-center py-1 bg-primary border-top mt-5 text-light shadow-lg">
+        <p class="mb-0 fs-5">END</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="js/javascript.js"></script>
+    <!--Positionユーティリティ用-->
+    <script>
+        function toggleNav(id) {
+            const nav = document.getElementById(id);
+            if (!nav) return;
+
+            if (nav.style.display === 'none') {
+                nav.style.display = 'block';
+            } else {
+                nav.style.display = 'none';
+            }
+        }
+        function loadFileContent(elementId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(text => {
+                    const el = document.getElementById(elementId);
+                    if (el) {
+                        el.textContent = text;
+                    }
+                })
+                .catch(err => {
+                    const el = document.getElementById(elementId);
+                    if (el) {
+                        el.textContent = 'ファイルの読み込みに失敗しました';
+                    }
+                    console.error(err);
+                });
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const navbarCollapse = document.getElementById('navbarSupportedContent2');
+
+            navLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    // Bootstrap の Collapse インスタンスを取得して閉じる
+                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    }
+                });
+            });
+        });
+
+        loadFileContent('fileContent', 'html/template.html');
+
+    </script>
+</body>
+
+</html>
